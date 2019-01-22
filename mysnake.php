@@ -399,6 +399,54 @@ class player1
 		}
 		return $q1;
 	}
+	$gum=0;
+
+if(isset($_POST['spin']))
+{   
+	$newp= new player();
+	$newp1=new player1();
+		if($_SESSION['m']%2==0)
+		{
+			$s=$newp->mainm();
+			$_SESSION['newp']=$newp;
+			//$_SESSION['m']=$_SESSION['m']+1;
+		}
+		else
+		{
+			$s=$newp1->mainm();
+			$_SESSION['newp1']=$newp1;
+			//$_SESSION['m']=$_SESSION['m']+1;
+		}
+}
+else if(isset($_POST['replay']))
+{
+	session_destroy();
+	header('refresh:0');
+	die();
+}
+else if(isset($_POST['game']))
+{
+	$_SESSION['gum']=$gum;
+	$_SESSION['gum']=1;
+	$gum=1;
+	$s="-";
+	$_SESSION['p1']=$_POST['player1'];
+	$_SESSION['p2']=$_POST['player2'];
+}
+else
+{
+	$_SESSION['p1']=null;
+	$_SESSION['p2']=null;
+	$gum=0;
+	$_SESSION['gum']=$gum;
+	$newp=new player();
+	$newp1=new player1();
+	$_SESSION['pos']="0";
+	$_SESSION['pos1']="0";
+	$_SESSION['m']="0";
+	$s="-";
+}
+?>
 }
 ?>
 <!DOCTYPE html>
