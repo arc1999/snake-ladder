@@ -157,5 +157,50 @@ class player
 			break;
 		}
 	}
+	function chance($z)
+	{	
+		if($z==6)
+		{
+			$_SESSION['m']=$_SESSION['m']+1;
+		}
+	}
+	function win()
+	{
+		if($_SESSION['pos']==100)
+		{
+			echo "Player 1 wins";
+			session_destroy();
+			header('refresh:0');
+			die();
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}	
+	function close()
+	{
+		if($_SESSION['pos']+$GLOBALS['rd']<=100)
+		{
+			$this->move();
+			$this->replace();
+		}
+	}
+	function mainm()
+	{
+		$this->roll_dice();
+		$q=$GLOBALS['rd'];
+		if($this->open()==true)
+		{
+			$this->chance($q);
+			if($this->win()!=true)
+			{
+				$this->close();
+			}
+		}
+		return $q;
+	}
+}
 }
 ?>
