@@ -86,5 +86,76 @@ class player
 			break;
 		}
 	}
+	function open()
+	{
+		if(($GLOBALS['rd']==1 || $GLOBALS['rd']==6))
+		{
+			return true;
+		}
+		else
+		{
+			if($_SESSION['pos']==0)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	}
+	function move()
+	{
+		$_SESSION['pos']=$_SESSION['pos']+$GLOBALS['rd'];
+	}
+	function replace()
+	{
+		$a=$_SESSION['pos'];
+		switch($a)
+		{
+			case 23:
+			$_SESSION['pos']=7;
+			break;
+			case 33:
+			$_SESSION['pos']=9;
+			break;
+			case 44:
+			$_SESSION['pos']=14;
+			break;
+			case 68:
+			$_SESSION['pos']=25;
+			break;
+			case 77:
+			$_SESSION['pos']=41;
+			break;
+			case 94:
+			$_SESSION['pos']=70;
+			break;
+			case 97:
+			$_SESSION['pos']=66;
+			break;
+			case 5:
+			$_SESSION['pos']=26;
+			break;
+			case 13:
+			$_SESSION['pos']=46;
+			break;
+			case 18:
+			$_SESSION['pos']=39;
+			break;
+			case 37:
+			$_SESSION['pos']=62;
+			break;
+			case 48:
+			$_SESSION['pos']=72;
+			break;
+			case 60:
+			$_SESSION['pos']=82;
+			break;
+			case 65:
+			$_SESSION['pos']=95;
+			break;
+		}
+	}
 }
 ?>
