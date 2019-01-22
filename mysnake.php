@@ -158,7 +158,7 @@ class player
 		}
 	}
 	function chance($z)
-	{	
+	{
 		if($z==6)
 		{
 			$_SESSION['m']=$_SESSION['m']+1;
@@ -178,7 +178,7 @@ class player
 		{
 			return false;
 		}
-	}	
+	}
 	function close()
 	{
 		if($_SESSION['pos']+$GLOBALS['rd']<=100)
@@ -202,5 +202,203 @@ class player
 		return $q;
 	}
 }
+class player1
+{
+	var $p11=false;
+	var $p12=false;
+	var $p13=false;
+	var $p21=false;
+	var $p22=false;
+	var $p23=false;
+	var $p31=false;
+	var $p32=false;
+	var $p33=false;
+	var $pos1;
+	var $rd=0;
+	var $temp1=0;
+	var $m;
+	function __player1()
+	{
+		$this->pos1=0;
+		$this->m=0;
+		$_SESSION['pos1']=$this->pos1;
+		$_SESSION['m']=$this->m;
+	}
+	function roll_dice()
+	{
+		$p11=false;
+		$p12=false;
+		$p13=false;
+		$p21=false;
+		$p22=false;
+		$p23=false;
+		$p31=false;
+		$p32=false;
+		$p33=false;
+		$GLOBALS['p11']=$p11;
+		$GLOBALS['p12']=$p12;
+		$GLOBALS['p13']=$p13;
+		$GLOBALS['p21']=$p21;
+		$GLOBALS['p22']=$p22;
+		$GLOBALS['p23']=$p23;
+		$GLOBALS['p31']=$p31;
+		$GLOBALS['p32']=$p32;
+		$GLOBALS['p33']=$p33;
+		$GLOBALS['rd']=rand(1,6);
+		$_SESSION['m']=$_SESSION['m']+1;
+		$ch=$GLOBALS['rd'];
+	switch($ch)
+	{
+		case 1:
+		$GLOBALS['p22']=true;
+		break;
+		case 2:
+		$GLOBALS['p11']=true;
+		$GLOBALS['p33']=true;
+		break;
+		case 3:
+		$GLOBALS['p11']=true;
+		$GLOBALS['p22']=true;
+		$GLOBALS['p33']=true;
+		break;
+		case 4:
+		$GLOBALS['p11']=true;
+		$GLOBALS['p13']=true;
+		$GLOBALS['p31']=true;
+		$GLOBALS['p33']=true;
+		break;
+		case 5:
+		$GLOBALS['p11']=true;
+		$GLOBALS['p13']=true;
+		$GLOBALS['p31']=true;
+		$GLOBALS['p33']=true;
+		$GLOBALS['p22']=true;
+		break;
+		case 6:
+		$GLOBALS['p11']=true;
+		$GLOBALS['p12']=true;
+		$GLOBALS['p13']=true;
+		$GLOBALS['p31']=true;
+		$GLOBALS['p32']=true;
+		$GLOBALS['p33']=true;
+		break;
+	}
+	}
+	function open()
+	{
+		if(($GLOBALS['rd']==1 || $GLOBALS['rd']==6))
+		{
+			return true;
+		}
+		else
+		{
+			if($_SESSION['pos1']==0)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+	}
+	function move()
+	{
+		$_SESSION['pos1']=$_SESSION['pos1']+$GLOBALS['rd'];
+	}
+	function replace()
+	{
+		$a=$_SESSION['pos1'];
+		switch($a)
+		{
+			case 23:
+			$_SESSION['pos1']=7;
+			break;
+			case 33:
+			$_SESSION['pos1']=9;
+			break;
+			case 44:
+			$_SESSION['pos1']=14;
+			break;
+			case 68:
+			$_SESSION['pos1']=25;
+			break;
+			case 77:
+			$_SESSION['pos1']=41;
+			break;
+			case 94:
+			$_SESSION['pos1']=70;
+			break;
+			case 97:
+			$_SESSION['pos1']=66;
+			break;
+			case 5:
+			$_SESSION['pos1']=26;
+			break;
+			case 13:
+			$_SESSION['pos1']=46;
+			break;
+			case 18:
+			$_SESSION['pos1']=39;
+			break;
+			case 37:
+			$_SESSION['pos1']=62;
+			break;
+			case 48:
+			$_SESSION['pos1']=72;
+			break;
+			case 60:
+			$_SESSION['pos1']=82;
+			break;
+			case 65:
+			$_SESSION['pos1']=95;
+			break;
+		}
+	}
+	function chance($z)
+	{
+		if($z==6)
+		{
+			$_SESSION['m']=$_SESSION['m']+1;
+		}
+	}
+	function win()
+	{
+		if($_SESSION['pos1']==100)
+		{
+			echo "Player 2 wins";
+			session_destroy();
+			header('refresh:0');
+			die();
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	function close()
+	{
+		if($_SESSION['pos1']+$GLOBALS['rd']<=100)
+		{
+			$this->move();
+			$this->replace();
+		}
+	}
+	function mainm()
+	{
+		$this->roll_dice();
+		$q1=$GLOBALS['rd'];
+		if($this->open()==true)
+		{
+			$this->chance($q1);
+			if($this->win()!=true)
+			{
+				$this->close();
+			}
+		}
+		return $q1;
+	}
 }
+
 ?>
